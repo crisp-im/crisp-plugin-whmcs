@@ -26,42 +26,6 @@ function hook_crisp_footer_output($vars)
 
 	if (!$website_id) return false;
 
-	/*$params = array();
-	if (isset($vars['clientsdetails']))
-	{
-		$keys = array(
-			'firstname' => 'First name',
-			'lastname' => 'Last name',
-			'companyname' => 'Company name',
-			'phonenumber' => 'Phone'
-		);
-
-		foreach ($keys as $k => $v)
-		{
-			if (isset($vars['clientsdetails'][$k]))
-			{
-				$params[] = array(
-					'key' => $v,
-					'value' => html_entity_decode($vars['clientsdetails'][$k])
-				);
-			}
-		}
-
-		if (sizeof($params) > 0)
-		{
-			$s .= "  __lc.params = [
-    ";
-			$paramsArray = array();
-			foreach ($params as $param)
-			{
-				$paramsArray[] = "{ name: \"".$param['key']."\", value: ".json_encode($param['value'])." }";
-			}
-			$s .= implode(",\n    ", $paramsArray);
-			$s .= "\n  ];
-";
-		}
-	}*/
-
 	$output .= "<script type='text/javascript'>";
 
 
