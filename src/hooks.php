@@ -8,8 +8,8 @@ use Illuminate\Database\Capsule\Manager as Capsule;
 
 function hook_crisp_footer_output($vars)
 {
-    $website_id = Capsule::table('tbladdonmodules')->select('value')->WHERE('module', '=', 'crisp')->WHERE('setting', '=', 'website_id')->pluck('value');
-    if(!is_numeric($website_id) || !$website_id) {
+    $website_id = Capsule::table('tbladdonmodules')->select('value')->WHERE('module', '=', 'crisp')->WHERE('setting', '=', 'website_id')->value();
+    if(!$website_id) {
         return;
     }
 
