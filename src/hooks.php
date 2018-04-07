@@ -4,11 +4,11 @@ if(!defined("WHMCS")) {
     die("This file cannot be accessed directly");
 }
 
-use Illuminate\Database\Capsule\Manager as Capsule;
+use WHMCS\Database\Capsule;
 
 function hook_crisp_footer_output($vars)
 {
-    $website_id = Capsule::table('tbladdonmodules')->select('value')->WHERE('module', '=', 'crisp')->WHERE('setting', '=', 'website_id')->value();
+    $website_id = Capsule::table('tbladdonmodules')->where('module', 'crisp')->where('setting', 'website_id')->value('value');
     if(!$website_id) {
         return;
     }
