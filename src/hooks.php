@@ -17,6 +17,11 @@ function hook_crisp_footer_output($vars)
         window.CRISP_READY_TRIGGER = function() {
     ";
 
+    if ($vars['clientsdetails']['email']) {
+        $email = $vars['clientsdetails']['email'];
+        $output .= "\$crisp.set('user:email', '$email');";
+    }
+
     // First and last name
     if ($vars['clientsdetails']['firstname']) {
         $name = $vars['clientsdetails']['firstname'] . " " . $vars['clientsdetails']['lastname'];
@@ -26,7 +31,6 @@ function hook_crisp_footer_output($vars)
     // Information apart from First & Lastname that should be imported. Must exist in the clientsdetails-array.
     if(isset($vars['clientsdetails'])) {
         $merge_fields = [
-            'email',
             'id',
             'companyname',
             'address1',
@@ -40,7 +44,7 @@ function hook_crisp_footer_output($vars)
 
         foreach($merge_fields as $merge_field) {
             if(isset($vars['clientsdetails'][$merge_field])) {
-                $output .= "\$crisp.set('user:" . $merge_field . "', '" . $vars['clientsdetails'][$merge_field] . "');";
+                $output .= "\$crisp.set('session:data', ['" . $merge_field . "', '" . $vars['clientsdetails'][$merge_field] . "']);";
             }
         }
     }
