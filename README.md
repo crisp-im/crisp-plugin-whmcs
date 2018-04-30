@@ -10,4 +10,4 @@ Crisp Livechat WHMCS plugin
 
 3) Download the Crisp plugin and place it in the /modules/addons directory and name it as crisp.
 
-4) Activate Crisp plugin from your WHMCS addons.
+4) Activate Crisp plugin from your WHMCS addons. (Setup > Addons)
