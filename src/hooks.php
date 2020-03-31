@@ -9,6 +9,8 @@ use WHMCS\Database\Capsule;
 function hook_crisp_footer_output($vars)
 {
     $website_id = Capsule::table('tbladdonmodules')->where('module', 'crisp')->where('setting', 'website_id')->value('value');
+    $website_verify = Capsule::table('tbladdonmodules')->where('module', 'crisp')->where('setting', 'website_verify')->value('value');
+    
     if(!$website_id) {
         return;
     }
@@ -17,9 +19,13 @@ function hook_crisp_footer_output($vars)
         window.CRISP_READY_TRIGGER = function() {
     ";
 
-    if ($vars['clientsdetails']['email']) {
+    if ($vars['clientsdetails']['email'] && empty($website_verify)) {
         $email = $vars['clientsdetails']['email'];
-        $output .= "\$crisp.set('user:email', '$email');";
+        $output .= "\$crisp.push(['set', 'user:email', ['$email']]);";
+    } else if ($vars['clientsdetails']['email']) {
+        $email = $vars['clientsdetails']['email'];
+        $hmac = hash_hmac("sha256", $email, $website_verify);
+        $output .= "\$crisp.push(['set', 'user:email', ['$email', '$hmac']]);";
     }
 
     // First and last name
